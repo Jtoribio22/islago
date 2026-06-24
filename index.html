@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><JTDRExcursions></title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C8A84B;
+    --gold-light: #E8D08A;
+    --gold-dark: #8A6F2E;
+    --ocean: #0D4F6C;
+    --ocean-light: #1A7A9E;
+    --ocean-deep: #082D3E;
+    --sand: #F5EDD8;
+    --sand-dark: #E8D4A8;
+    --white: #FFFFFF;
+    --text-dark: #1A1208;
+    --text-mid: #4A3F2A;
+    --text-light: #8A7A5A;
+    --wa-green: #25D366;
+    --wa-green-dark: #1DA851;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(8,45,62,0.7) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-wa {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--wa-green);
+    color: white;
+    padding: 0.55rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .nav-wa:hover { background: var(--wa-green-dark); transform: translateY(-1px); }
+
+  .nav-wa svg { width: 18px; height: 18px; fill: white; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 620px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    /* ✏️ REPLACE THIS URL WITH YOUR OWN HERO PHOTO */
+    background-image: url('Punta%20Cana%20Beach-U.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
+
+  .hero-bg.loaded { transform: scale(1); }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(8,45,62,0.88) 0%,
+      rgba(8,45,62,0.3) 50%,
+      rgba(8,45,62,0.1) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 0 2.5rem 5rem;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(200,168,75,0.2);
+    border: 1px solid rgba(200,168,75,0.5);
+    color: var(--gold-light);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.78);
+    font-weight: 300;
+    max-width: 520px;
+    margin-bottom: 2.25rem;
+    line-height: 1.65;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--wa-green);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  }
+
+  .btn-wa:hover {
+    background: var(--wa-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.45);
+  }
+
+  .btn-wa svg { width: 22px; height: 22px; fill: white; }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 0.9rem 1.75rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    background: rgba(200,168,75,0.1);
+    color: var(--gold-light);
+  }
+
+  /* ─── TRUST STRIP ─── */
+  .trust-strip {
+    background: var(--ocean-deep);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .trust-item .icon {
+    font-size: 1.1rem;
+  }
+
+  .trust-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ─── SECTION STRUCTURE ─── */
+  .section {
+    padding: 5rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    color: var(--ocean-deep);
+    line-height: 1.2;
+  }
+
+ .section-title span { color: var(--white); }
+
+  /* ─── TOUR CARDS ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.75rem;
+  }
+
+  .tour-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(8,45,62,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .tour-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(8,45,62,0.15);
+  }
+
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 210px;
+  }
+
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .tour-card:hover .card-img-wrap img { transform: scale(1.06); }
+
+  .card-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: var(--ocean);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border-radius: 50px;
+  }
+
+  .card-badge.half { background: var(--gold-dark); }
+  .card-badge.full { background: var(--ocean); }
+  .card-badge.transfer { background: #3A5F3A; }
+
+  .card-body {
+    padding: 1.25rem 1.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ocean-deep);
+    line-height: 1.3;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  .card-meta-item svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--text-light);
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .card-footer {
+    padding: 1rem 1.4rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #F0E8D0;
+  }
+
+  .card-price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-price-from {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .card-price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ocean-deep);
+    line-height: 1;
+  }
+
+  .card-price-amount span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+  }
+
+  .btn-book {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--wa-green);
+    color: white;
+    padding: 0.65rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-book:hover {
+    background: var(--wa-green-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-book svg { width: 16px; height: 16px; fill: white; }
+
+  /* ─── CATEGORY FILTER ─── */
+  .filter-bar {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 50px;
+    border: 1.5px solid var(--sand-dark);
+    background: transparent;
+    color: var(--text-mid);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--ocean);
+    color: white;
+    border-color: var(--ocean);
+  }
+
+  /* ─── WHATSAPP FLOATING ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--wa-green);
+    color: white;
+    padding: 0.8rem 1.4rem 0.8rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: wa-pulse 2.5s infinite;
+  }
+
+  .wa-float:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.55);
+    animation: none;
+  }
+
+  .wa-float svg { width: 24px; height: 24px; fill: white; flex-shrink: 0; }
+
+  @keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+    50% { box-shadow: 0 6px 32px rgba(37,211,102,0.7); }
+  }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner {
+    background: var(--ocean-deep);
+    padding: 4rem 2.5rem;
+    text-align: center;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-banner h2 span { color: var(--gold); }
+
+  .cta-banner p {
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #060E14;
+    color: rgba(255,255,255,0.55);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    font-size: 0.82rem;
+    gap: 1rem;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ─── TOUR DETAIL MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(8,45,62,0.78);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.25rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .modal-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 640px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(8,45,62,0.4);
+    transform: translateY(18px) scale(0.97);
+    transition: transform 0.28s ease;
+  }
+
+  .modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(8,45,62,0.55);
+    color: white;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: var(--ocean-deep); }
+
+  .modal-img-wrap {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .modal-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-body {
+    padding: 1.75rem 2rem 2rem;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ocean-deep);
+    margin: 0.85rem 0 0.85rem;
+    line-height: 1.25;
+  }
+
+  .modal-desc {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+  }
+
+  .modal-section {
+    margin-bottom: 1.75rem;
+  }
+
+  .modal-section h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .modal-section ul li {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .modal-section ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--ocean);
+    font-weight: 700;
+  }
+
+  .modal-section p {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-top: 1px solid #F0E8D0;
+    padding-top: 1.5rem;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 0 1.25rem 4rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .trust-strip { gap: 1.2rem; padding: 0.85rem 1.25rem; }
+    .trust-divider { display: none; }
+    .wa-float span { display: none; }
+    .wa-float { padding: 0.9rem; border-radius: 50%; }
+    footer { flex-direction: column; text-align: center; }
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .modal-content { max-width: 100%; max-height: 92vh; border-radius: var(--radius) var(--radius) 0 0; }
+    .modal-img-wrap { height: 200px; }
+    .modal-body { padding: 1.5rem 1.25rem 1.75rem; }
+    .modal-title { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     NAVIGATION
+     ✏️ Update: logo name, nav links, WhatsApp number
+     ════════════════════════════════ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- ✏️ YOUR COMPANY NAME -->
+    JTDR<span>Excursions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#transfers">Transfers</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <!-- ✏️ Replace 1XXXXXXXXXX with your WhatsApp number (no + or spaces) -->
+  <a href="https://wa.me/13435491472?text=Hi!%20I%27d%20like%20to%20book%20a%20tour." class="nav-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat with Us
+  </a>
+</nav>
+
+
+<!-- ════════════════════════════════
+     HERO SECTION
+     ✏️ Update: headline, subheadline, WhatsApp number, hero photo URL in CSS (.hero-bg)
+     ════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      ✦ Punta Cana, Dominican Republic
+    </div>
+    <!-- ✏️ YOUR MAIN HEADLINE -->
+    <h1 class="hero-title">
+      Customize your excursions, Let's make your dream vacation a reality.<br>
+      <span class="accent"></span>
+    </h1>
+    <!-- ✏️ YOUR SUBHEADLINE -->
+    <p class="hero-subtitle">
+      Private excursions, airport transfers and adventure tours, all arranged directly with our local agents. No more beachside negotiations- Just send us a message.
+    </p>
+    <div class="hero-ctas">
+      <!-- ✏️ Replace 13435491472 with your WhatsApp number -->
+      <a href="https://wa.me/13435491472?text=Hi!%20I%27d%20like%20to%20book%20a%20tour%20in%20Punta%20Cana." class="btn-wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Get a Quote Now
+      </a>
+      <a href="#tours" class="btn-outline">
+        Browse Tours ↓
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════
+     TRUST STRIP
+     ✏️ Update stats to match your business
+     ════════════════════════════════ -->
+<div class="trust-strip">
+  <div class="trust-item"><span class="icon">⭐</span> 4.8 Rating on Google</div>
+  <div class="trust-divider"></div>
+  <!-- ✏️ Update client count -->
+  <div class="trust-item"><span class="icon">🏆</span> 35+ Years Combined Travel Experience</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item"><span class="icon">🚐</span> Hotel Pickups & Transfers </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item"><span class="icon">⚡</span> Direct Communication</div>
+  <div class="trust-divider"></div>
+  <div class="trust-item"><span class="icon">🇩🇴</span> Experienced Local Guides</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     TOURS SECTION
+     ✏️ Duplicate .tour-card blocks for each tour.
+        For each card update:
+        - data-category attribute (for filter)
+        - img src (your tour photo)
+        - badge type & text (Half Day / Full Day / Transfer)
+        - card title
+        - duration & group size meta
+        - description
+        - price
+        - WhatsApp link with pre-filled tour name
+     ════════════════════════════════ -->
+<div class="section" id="tours">
+  <div class="section-header">
+    <span class="section-eyebrow">Explore Punta Cana</span>
+    <h2 class="section-title">Popular Tours & <span>Excursions</span></h2>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCards('water', this)">🌊 Water</button>
+    <button class="filter-btn" onclick="filterCards('offroad', this)">🏍️ Off-Road</button>
+    <button class="filter-btn" onclick="filterCards('nature', this)">🌿 Nature</button>
+    <button class="filter-btn" onclick="filterCards('nightlife', this)">🎉 Nightlife</button>
+    <button class="filter-btn" onclick="filterCards('transfer', this)">✈️ Transfers</button>
+  </div>
+
+  <div class="cards-grid" id="cardsGrid">
+
+    <!-- ── CARD 1 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="water"
+         data-extra="This is one of our most-booked excursions — a full day on the postcard-perfect sandbars and palm-lined shores of Saona Island, with a stop to wade among starfish along the way."
+         data-highlights="Transportation from hotel (with AC) | Travel to Saona by Catamaran or Speedboat | Lunch & Open Bar"
+         data-included="Sun Lotion / Sunscreen | Beach Towels | Sunglasses | Swimsuits"
+         data-good-to-know="Bring sunscreen, a swimsuit, and a towel. Water shoes are recommended for the sandbar stop, and most of the day is spent outdoors in direct sun.">
+      <div class="card-img-wrap">
+        <!-- ✏️ Replace with your tour image URL -->
+        <img src="saona-island-guide_isla-saona.webp" alt="Saona Island Excursion" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <!-- ✏️ Tour title -->
+        <h3 class="card-title">Saona Island Excursion</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <!-- ✏️ Duration -->
+            12 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <!-- ✏️ Group size -->
+            Up to 15
+          </span>
+        </div>
+        <!-- ✏️ Short description -->
+        <p class="card-desc">Take a sailboat catamaran or speedboat to the island, enjoy the beach and open bar with local drinks and lunch included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <!-- ✏️ Price -->
+          <span class="card-price-amount">$85 <span>/ person</span></span>
+        </div>
+        <!-- ✏️ Replace 1XXXXXXXXXX and update tour name in message text -->
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Saona%20Island%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 2 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="offroad"
+         data-extra="Hello Jose"
+         data-highlights="Drive your own dune buggy through the Dominican countryside | Stop at a local farm to sample fresh fruit and coffee | Swim in a natural freshwater cenote | Pass through small villages for an authentic local glimpse"
+         data-included="Hotel pickup and drop-off | Buggy rental with safety gear | Bilingual guide leading the convoy | Bottled water and a fruit stop"
+         data-good-to-know="A valid driver's license is required to drive; passengers without one are welcome to ride along. Wear closed-toe shoes and clothes you don't mind getting dusty.">
+      <div class="card-img-wrap">
+        <img src="126926.jpg" alt="Dune Buggy Adventure" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Dune Buggy Adventure</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 10
+          </span>
+        </div>
+        <p class="card-desc">Race buggies off-road through the Dominican Countryside, then continue the adventure to swim in a real indigenous cenote.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$65 <span>/ person</span></span>
+        </div>
+        <a href="https://github.com/user-attachments/assets/f62f1d3d-9084-4eff-9b72-0fff312423b3." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 3 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="water"
+         data-extra="Experience one of the wildest nights out in the Caribbean at the legendary Coco Bongo nightclub, known for its acrobatic shows, live bands, and open bar."
+         data-highlights="Live acrobatic and circus-style performances | Tribute bands and surprise look-alike acts | Open bar all night long | Reserved seating for the show"
+         data-included="Round-trip transportation from your hotel | Entrance to Coco Bongo | Open bar (national drinks) | Reserved seating for the show"
+         data-good-to-know="This excursion runs late into the night, typically returning to your hotel after 2am. Smart-casual dress is recommended and the venue gets loud and crowded.">
+      <div class="card-img-wrap">
+        <img src="Cocobongo-U.jpg" alt="Cocobongo Nightlife Tour" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Cocobongo Night Life</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Groups welcome
+          </span>
+        </div>
+        <p class="card-desc">Visit the famous Cocobongo nightclub in downtown Punta Cana and attend the shows. Transportation included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$65 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Party%20Boat%20%26%20Snorkeling%20tour." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 4 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="transfer"
+         data-extra="All aboard the Hispaniola! This family-friendly pirate adventure blends theatrical pirate training with swimming stops, games, and a treasure hunt for the kids."
+         data-highlights="Pirate training and face-painting for kids | Treasure hunt game with prizes | Stop to swim and snorkel from the ship | Live pirate-themed show and music on deck"
+         data-included="Round-trip hotel transportation | Pirate costume props and face painting | Snacks and drinks on board | Treasure hunt activity"
+         data-good-to-know="This tour is geared toward families with children. Bring swimwear and a towel for the swim stop — the ship departs and returns at scheduled times.">
+      <div class="card-img-wrap">
+        <img src="Barco-pirata-y-snorkel-en-Punta-Cana.jpg" alt="Private Airport Transfer" loading="lazy">
+        <span class="card-badge transfer">Transfer</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Become Pirates in the Carribean</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            On arrival
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            1–8 passengers
+          </span>
+        </div>
+        <p class="card-desc">Board the mighty pirate ship Hispaniola, receive pirate training and complete a trasure hunt. Drinks and show included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$45 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%20need%20a%20private%20airport%20transfer." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 5 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nightlife"
+         data-extra="Treat yourself to a relaxing afternoon of marine-inspired wellness, finished off with a dip in the ocean to wash it all away."
+         data-highlights="Soothing fish pedicure treatment | Full-body professional massage | Guided bio-pilates session by the water | Quiet, adults-only setting"
+         data-included="Round-trip hotel transportation | Fish pedicure session | 60-minute massage | Bio-pilates class"
+         data-good-to-know="This experience is intended for adults only and runs on a limited daily schedule, so advance booking is recommended.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=600&q=80" alt="Ocean Spa Experience" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Coco Bongo Nightlife</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Evening
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Adults only
+          </span>
+        </div>
+        <p class="card-desc">Enjoy a full marine spa treatment, including a fish pedicure, professional massage and bio-pilates course.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$90 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Coco%20Bongo%20Nightlife%20package." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 6 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="A two-stop adventure that pairs the artists' village of Altos de Chávon with a snorkeling stop in the crystal-clear waters surrounding Catalina Island."
+         data-highlights="Explore the cobblestone streets of Altos de Chávon | Snorkel one of the Caribbean's largest coral reefs | Spot colorful reef fish and starfish | Scenic boat ride along the southeastern coast"
+         data-included="Round-trip hotel transportation | Snorkeling gear and life vest | Guided tour of Altos de Chávon | Lunch and soft drinks"
+         data-good-to-know="Basic swimming ability is recommended for the snorkeling stop. Bring reef-safe sunscreen, a swimsuit, and a change of clothes.">
+      <div class="card-img-wrap">
+        <img src="botes-playa-isla-catalina.jpg" alt="Catalina Island Snorkeling" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Catalina Island Snorkeling</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Visit the Altos de Chavon historic village, then sail to Catalina island to snorkel with colorful fish in one of the biggest coral reefs in the Caribbean.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+       <!-- ── CARD 7 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Head out into the deep blue with an experienced local crew chasing marlin, tuna, mahi-mahi, and wahoo in one of the Caribbean's top sportfishing grounds."
+         data-highlights="Deep-sea fishing for marlin, tuna, and mahi-mahi | Professional captain and mate on board | All rods, reels, and bait provided | Photos with your catch back at the dock"
+         data-included="Round-trip hotel transportation | Fishing equipment and bait | Bottled water and light snacks | Captain and crew"
+         data-good-to-know="Spots are limited per boat, so booking a few days ahead is recommended. Anyone prone to seasickness may want to take preventive medication before departure.">
+      <div class="card-img-wrap">
+        <img src="blue-marlin-charters-fishing.webp" alt="Catalina Island Snorkeling" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Deep-Sea Fishing</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Catch Marlin and Tuna in the Punta Cana Zone, one of the most popular fishing areas in the Caribbean.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+          <!-- ── CARD 8 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Trade the beach for history on a full-day journey to Santo Domingo, the oldest European city in the Americas, packed with colonial landmarks and local culture."
+         data-highlights="Walk Calle Las Damas, the oldest street in the Americas | Visit the Catedral Primada de América | Photo stop at the Presidential Palace | Free time to browse local artisan shops"
+         data-included="Round-trip transportation in an air-conditioned vehicle | Bilingual guide | Lunch at a local restaurant | All entrance fees to listed sites"
+         data-good-to-know="This is a long travel day, with several hours of driving each way from Punta Cana, so comfortable shoes are recommended. Bring a valid photo ID.">
+      <div class="card-img-wrap">
+        <img src="download.jpg" alt="Catalina Island Snorkeling" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Santo Domingo Daytrip</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Visit the oldest city of the New World, Santa Maria La Menor Cathedral, Calle las Damas, and the Presidential Palace. Includes lunch at a local restaurant.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+          <!-- ── CARD 9 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Spend the day exploring Scape Park's network of underground caverns, cenotes, and adrenaline activities tucked into the jungle just outside Punta Cana."
+         data-highlights="Zipline above the jungle canopy | Cliff-jump into a crystal-clear cenote | Explore ancient underground caves and caverns | Swim in natural freshwater pools"
+         data-included="Round-trip hotel transportation | Full park admission | Safety gear for ziplining and cave activities | Locker and changing facilities"
+         data-good-to-know="Closed-toe water shoes are required for the cave and cenote sections. This excursion involves moderate physical activity, including stairs and uneven terrain.">
+      <div class="card-img-wrap">
+        <img src="DSC09034_saltos.jpg" alt="Catalina Island Snorkeling" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Scape Park Full Admission</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Ziplining, cliff-diving and more: Explore underground caves and anchient caverns at historic Scape Park! Transportation included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+          <!-- ── CARD 10 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Skim across the coastline by speedboat before dropping anchor over a shallow reef for an afternoon of snorkeling and beach time."
+         data-highlights="High-speed boat ride along the coast | Snorkel over a shallow coral reef | Stop at a secluded beach for relaxation | Spot tropical fish along the way"
+         data-included="Round-trip hotel transportation | Snorkeling gear and life vest | Bottled water and fruit | Beach stop with free time"
+         data-good-to-know="Swimming ability is helpful but not required, since life vests are provided. Bring sunscreen and a swimsuit.">
+      <div class="card-img-wrap">
+        <img src="Speedboat-Snorkeling-1024x1024.webp" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Speedboat & Snorkel Tour</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Catch Marlin and Tuna in the Punta Cana Zone, one of the most popular fishing areas in the Caribbean..</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+             <!-- ── CARD 11 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Set sail along the Bávaro coastline aboard a classic sailboat, with a stop to wade through the famous natural swimming pool and snorkel its coral gardens."
+         data-highlights="Sail the turquoise waters off Bávaro Beach | Wade through the natural swimming pool | Snorkel a shallow coral reef | Onboard music and refreshments"
+         data-included="Round-trip hotel transportation | Sailboat excursion | Snorkeling gear | Soft drinks and light snacks"
+         data-good-to-know="This excursion is weather-dependent and may be rescheduled in case of rough seas. Comfortable swimwear is recommended throughout.">
+      <div class="card-img-wrap">
+        <img src="Speedboat-Snorkeling-1024x1024.webp" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Punta Cana Sailing Cruise</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Sail around Bavaro's Natural Swimming Pool and snorkel in its coral reefs.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+             <!-- ── CARD 12 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Step off the resort strip and into everyday Dominican life with a cultural day trip to Higuey, home to the country's most important basilica and a working countryside farm."
+         data-highlights="Visit the Basílica de Nuestra Señora de la Altagracia | Browse handcrafted gifts at the local artisan market | Tour a traditional countryside home | Sample fresh-brewed coffee and cocoa"
+         data-included="Round-trip hotel transportation | Bilingual local guide | Coffee and cocoa tasting | Market time for souvenir shopping"
+         data-good-to-know="This tour focuses on culture and history rather than beach time, so dress modestly for the basilica visit (shoulders and knees covered).">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Higuey City & Culture</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Explore the closed city of Higuey, La Altagracia Province! See The Basicilica, shop at the handcrafted gifts market and visit a traditional countryside house for coffee and cocoa.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ✏️ ADD MORE CARDS HERE — just copy any card block above and edit the content -->
+
+  </div>
+</div>
+
+ <!-- ════════════════════════════════
+     PRIVATE TOURS SECTION
+     ✏️ Duplicate .tour-card blocks for each tour.
+        For each card update:
+        - data-category attribute (for filter)
+        - img src (your tour photo)
+        - badge type & text (Half Day / Full Day / Transfer)
+        - card title
+        - duration & group size meta
+        - description
+        - price
+        - WhatsApp link with pre-filled tour name
+     ════════════════════════════════ -->
+<div class="section" id="tours">
+  <div class="section-header">
+    <h2 class="section-title">Private Tours</span></h2>
+  </div>
+ 
+  <div class="cards-grid" id="cardsGrid">
+
+    <!-- ── CARD 1 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="water"
+         data-extra="Enjoy the same unforgettable Saona Island experience as our group tour, but on a private charter with your own boat, crew, and schedule — just for your group."
+         data-highlights="Private boat and crew reserved exclusively for your group | Flexible departure time built around your schedule | Stop at the natural pool to swim with starfish | Private beach setup on Saona Island"
+         data-included="Private round-trip transportation | Private catamaran or speedboat charter | Open bar with local drinks | Private lunch setup on the island"
+         data-good-to-know="Because this is a private charter, pricing scales with group size — reach out on WhatsApp for an exact quote.">
+      <div class="card-img-wrap">
+        <!-- ✏️ Replace with your tour image URL -->
+        <img src="saona-island-guide_isla-saona.webp" alt="Private Saona Island Excursion" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <!-- ✏️ Tour title -->
+        <h3 class="card-title">Private Saona Island Cruise</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <!-- ✏️ Duration -->
+            12 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <!-- ✏️ Group size -->
+            Up to 15
+          </span>
+        </div>
+        <!-- ✏️ Short description -->
+        <p class="card-desc">Take a sailboat catamaran or speedboat to the island, enjoy the beach and open bar with local drinks and lunch included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <!-- ✏️ Price -->
+          <span class="card-price-amount">$85 <span>/ person</span></span>
+        </div>
+        <!-- ✏️ Replace 1XXXXXXXXXX and update tour name in message text -->
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Saona%20Island%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 2 ── ✏️ Edit all content below -->
+ <div class="tour-card" data-category="nature"
+         data-extra="The same colonial Santo Domingo itinerary as our classic day trip, arranged as a private tour with your own vehicle, driver, and guide."
+         data-highlights="Private vehicle and dedicated guide for your group only | Visit the Catedral Primada de América and Calle Las Damas | Photo stop at the Presidential Palace | Itinerary paced to suit your group"
+         data-included="Private round-trip transportation | Private bilingual guide | Lunch at a local restaurant | All entrance fees to listed sites"
+         data-good-to-know="Departure time can be customized to your group's schedule — message us on WhatsApp to arrange a time that works for you.">
+      <div class="card-img-wrap">
+        <img src="download.jpg" alt="Catalina Island Snorkeling" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Santo Domingo Daytrip</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Visit the oldest city of the New World, Santa Maria La Menor Cathedral, Calle las Damas, and the Presidential Palace. Includes lunch at a local restaurant.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 3 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="water"
+         data-extra="Skip the shared shuttle and head to Coco Bongo's legendary shows with your own private transportation and reserved seating for your group."
+         data-highlights="Private transportation to and from the club | Reserved seating for your group | Live acrobatic and circus-style performances | Open bar all night long"
+         data-included="Private round-trip transportation | Entrance to Coco Bongo | Open bar (national drinks) | Reserved group seating"
+         data-good-to-know="This excursion runs late, typically returning after 2am. Let us know your group size in advance so we can reserve the right table.">
+      <div class="card-img-wrap">
+        <img src="JTDRExcursions/JTDRExcursions.ca/blob/main/Cocobongo-U.jpg" alt="Cocobongo Nightlife Tour" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Cocobongo Night Life</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Groups welcome
+          </span>
+        </div>
+        <p class="card-desc">Visit the famous Cocobongo nightclub in downtown Punta Cana and attend the shows. Transportation included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$65 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Party%20Boat%20%26%20Snorkeling%20tour." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CARD 4 ── ✏️ Edit all content below -->
+      <div class="tour-card" data-category="nature"
+         data-extra="The same cultural deep-dive into Higuey, arranged as a private tour so your group can move at its own pace with a dedicated guide."
+         data-highlights="Private guide and vehicle for your group only | Visit the Basílica de Nuestra Señora de la Altagracia | Browse handcrafted gifts at the artisan market | Private coffee and cocoa tasting at a countryside home"
+         data-included="Private round-trip transportation | Dedicated bilingual guide | Coffee and cocoa tasting | Flexible itinerary timing"
+         data-good-to-know="Dress modestly for the basilica visit (shoulders and knees covered). Contact us on WhatsApp to set a custom pickup time.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Private Higuey City & Culture</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <p class="card-desc">Explore the closed city of Higuey, La Altagracia Province! See The Basicilica, shop at the handcrafted gifts market and visit a traditional countryside house for coffee and cocoa.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$95 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ✏️ ADD MORE PRIVATE TOUR CARDS HERE — just copy any card block above and edit the content -->
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     WHATSAPP CTA BANNER
+     ✏️ Update WhatsApp number
+     ════════════════════════════════ -->
+<div class="cta-banner">
+  <h2>Ready for Your <span>Punta Cana</span> Adventure?</h2>
+  <p>Chat directly with our local agents. We'll build the perfect itinerary for your group — no booking forms, no waiting.</p>
+  <!-- ✏️ Replace 1XXXXXXXXXX with your WhatsApp number -->
+  <a href="https://wa.me/13435491472?text=Hi!%20I%27d%20like%20to%20plan%20my%20Punta%20Cana%20trip." class="btn-wa" target="_blank" rel="noopener" style="display:inline-flex;">
+    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Start Planning on WhatsApp
+  </a>
+</div>
+
+
+<!-- ════════════════════════════════
+     FOOTER
+     ✏️ Update company name, year, links
+     ════════════════════════════════ -->
+<footer>
+  <!-- ✏️ YOUR COMPANY NAME -->
+  <span>© 2025 JTDRExcursions. All rights reserved.</span>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+    <!-- ✏️ Replace 1XXXXXXXXXX with your WhatsApp number -->
+    <a href="https://wa.me/13435491472" target="_blank" rel="noopener">WhatsApp Us</a>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════
+     TOUR DETAIL MODAL
+     Populated dynamically via JS when a card is clicked.
+     ✏️ Lorem ipsum placeholder text below is replaced automatically
+        per-tour, but you can edit the constants in the script to
+        change the generic copy shown in every modal.
+     ════════════════════════════════ -->
+<div class="modal-overlay" id="tourModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="" alt="">
+      <span class="card-badge" id="modalBadge"></span>
+    </div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="card-meta" id="modalMeta"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+
+      <div class="modal-section">
+        <h4>Tour Highlights</h4>
+        <ul id="modalHighlights"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>What to bring:</h4>
+        <ul id="modalIncluded"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>Good to Know</h4>
+        <p id="modalGoodToKnow"></p>
+      </div>
+
+      <div class="modal-footer">
+        <div class="card-price" id="modalPrice"></div>
+        <div id="modalBookWrap"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     FLOATING WHATSAPP BUTTON
+     ✏️ Replace 1XXXXXXXXXX with your WhatsApp number
+     ════════════════════════════════ -->
+<a href="https://wa.me/13435491472?text=Hi!%20I%27d%20like%20to%20book%20a%20tour." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span>Chat with us</span>
+</a>
+
+
+<script>
+  // Hero image zoom-in on load
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+
+  // Tour card category filter
+  function filterCards(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tour-card').forEach(card => {
+      const show = category === 'all' || card.dataset.category === category;
+      card.style.display = show ? 'flex' : 'none';
+    });
+  }
+
+  // ── TOUR DETAIL MODAL ──
+  // ✏️ Per-tour modal copy now lives on each .tour-card element itself,
+  //    as data-* attributes, right next to the rest of that tour's info.
+  //    When you duplicate a card to add a new tour, just edit these too:
+  //
+  //      data-extra="One or two extra sentences appended after the short
+  //                  card description, shown at the top of the modal."
+  //      data-highlights="Item one | Item two | Item three | Item four"
+  //      data-included="Item one | Item two | Item three | Item four"
+  //      data-good-to-know="A short paragraph of practical info (what to
+  //                         bring, age limits, timing, etc.)."
+  //
+  //    Separate list items with " | " (a space, a pipe, a space).
+  //
+  //    The constants below are a FALLBACK ONLY — they're used if a card
+  //    is missing one of the data-* attributes above (e.g. you added a
+  //    new card and forgot to fill one in), so the modal never breaks.
+  const LOREM_EXTRA = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+  const LOREM_HIGHLIGHTS = [
+    "Lorem ipsum dolor sit amet consectetur adipiscing",
+    "Elit sed do eiusmod tempor incididunt ut labore",
+    "Dolore magna aliqua enim ad minim veniam quis",
+    "Nostrud exercitation ullamco laboris nisi ut aliquip"
+  ];
+
+  const LOREM_INCLUDED = [
+    "Lorem ipsum dolor sit amet consectetur",
+    "Adipiscing elit sed do eiusmod tempor",
+    "Incididunt ut labore et dolore magna",
+    "Aliqua enim ad minim veniam quis nostrud"
+  ];
+
+  const LOREM_GOOD_TO_KNOW = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+  // Splits a "Item one | Item two | Item three" string into a clean array.
+  // Falls back to the lorem list if the attribute is missing or empty.
+  function splitList(value, fallback) {
+    if (!value) return fallback;
+    return value.split('|').map(s => s.trim()).filter(Boolean);
+  }
+
+  function openModal(card) {
+    const img = card.querySelector('.card-img-wrap img');
+    const badge = card.querySelector('.card-badge');
+    const title = card.querySelector('.card-title').textContent;
+    const meta = card.querySelector('.card-meta');
+    const desc = card.querySelector('.card-desc').textContent;
+    const price = card.querySelector('.card-price');
+    const bookBtn = card.querySelector('.btn-book');
+
+    // Per-tour modal copy, read straight off the card's data-* attributes.
+    const extra = card.dataset.extra || LOREM_EXTRA;
+    const highlights = splitList(card.dataset.highlights, LOREM_HIGHLIGHTS);
+    const included = splitList(card.dataset.included, LOREM_INCLUDED);
+    const goodToKnow = card.dataset.goodToKnow || LOREM_GOOD_TO_KNOW;
+
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+
+    const modalBadge = document.getElementById('modalBadge');
+    modalBadge.className = badge.className;
+    modalBadge.textContent = badge.textContent;
+
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMeta').innerHTML = meta.innerHTML;
+    document.getElementById('modalDesc').textContent = desc + ' ' + extra;
+    document.getElementById('modalHighlights').innerHTML = highlights.map(i => `<li>${i}</li>`).join('');
+    document.getElementById('modalIncluded').innerHTML = included.map(i => `<li>${i}</li>`).join('');
+    document.getElementById('modalGoodToKnow').textContent = goodToKnow;
+    document.getElementById('modalPrice').innerHTML = price.innerHTML;
+    document.getElementById('modalBookWrap').innerHTML = bookBtn ? bookBtn.outerHTML : '';
+
+    const modal = document.getElementById('tourModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('tourModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close modal when clicking the dark overlay (outside the card)
+  document.getElementById('tourModal').addEventListener('click', (e) => {
+    if (e.target.id === 'tourModal') closeModal();
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Wire up every tour card to open the modal on click,
+  // while letting the "Book Now" WhatsApp button work normally
+  document.querySelectorAll('.tour-card').forEach((card) => {
+    card.addEventListener('click', () => openModal(card));
+    const bookBtn = card.querySelector('.btn-book');
+    if (bookBtn) {
+      bookBtn.addEventListener('click', (e) => e.stopPropagation());
+    }
+  });
+</script>
+
+</body>
+</html>
+index (26).html
+Displaying index (26).html.
