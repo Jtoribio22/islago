@@ -17,19 +17,19 @@
 <meta name="robots" content="index, follow">
 <meta name="author" content="Islago Tours">
 <meta name="theme-color" content="#0D4F6C">
-<link rel="canonical" href="https://islagotours.ca">
+<link rel="canonical" href="https://islagotours.com">
 
 <!-- Favicon (browser tab icon) -->
-<link rel="icon" type="image/jpeg" href="LogoCircle.jpg">
-<link rel="apple-touch-icon" href="LogoCircle.jpg">
+<link rel="icon" type="image/jpeg" href="LogoCircle.png">
+<link rel="apple-touch-icon" href="LogoCircle.png">
 
 <!-- Open Graph / Facebook, WhatsApp, iMessage, Slack, etc. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Islago Tours">
 <meta property="og:title" content="Islago Tours | Dominican Tours, Excursions & Golf Courses">
 <meta property="og:description" content="Book the best DR tours, excursions and golf courses directly on WhatsApp — Saona Island, off-road adventures, nightlife, transfers & tee times.">
-<meta property="og:url" content="https://islagotours.ca">
-<meta property="og:image" content="LogoCircle.jpg">
+<meta property="og:url" content="https://islagotours.com">
+<meta property="og:image" content="LogoCircle.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Islago Tours logo">
@@ -39,7 +39,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Islago Tours Excursions | Dominican Tours, Excursions & Golf Courses">
 <meta name="twitter:description" content="Book the best DR tours, excursions and golf courses directly on WhatsApp — Saona Island, off-road adventures, nightlife, transfers & tee times.">
-<meta name="twitter:image" content="LogoCircle.jpg">
+<meta name="twitter:image" content="LogoCircle.png">
 
 <!-- Structured data so search engines understand the brand -->
 <script type="application/ld+json">
@@ -47,9 +47,9 @@
   "@context": "https://schema.org",
   "@type": "TravelAgency",
   "name": "Islago Tours",
-  "url": "https://islagotours.ca",
-  "logo": "Logocircle.jpg",
-  "image": "LogoCircle.jpg",
+  "url": "https://islagotours.com",
+  "logo": "LogoCircle.png",
+  "image": "LogoCircle.png",
   "description": "Dominican tours, excursions and golf course bookings.",
   "areaServed": "Punta Cana, Dominican Republic, Canada, United States"
 }
@@ -77,6 +77,9 @@
     --golf-green: #6E9B5E;
     --golf-green-light: #EAF2E1;
     --golf-green-dark: #3F6B33;
+    --fishing-blue: #6FB7DE;
+    --fishing-blue-light: #E4F3FB;
+    --fishing-blue-dark: #2E7EA8;
     --radius: 12px;
     --radius-sm: 8px;
   }
@@ -170,7 +173,7 @@
     position: absolute;
     inset: 0;
     /* ✏️ REPLACE THIS URL WITH YOUR OWN HERO PHOTO */
-    background-image: url('Punta%20Cana%20Beach-U.jpg');
+    background-image: url('NewBanner.jpg');
     background-size: cover;
     background-position: center 30%;
     transform: scale(1.04);
@@ -668,6 +671,50 @@
     font-size: 3rem;
   }
 
+  /* ─── FISHING THEME (light blue) ─── */
+  .main-tab-btn.fishing-active.active {
+    background: var(--fishing-blue-dark);
+    border-color: var(--fishing-blue-dark);
+  }
+
+  .tours-golf-wrap.fishing-mode { background: var(--fishing-blue-light); }
+
+  #mainTab-fishing { background: transparent; }
+
+  .fishing-filter-btn:hover, .fishing-filter-btn.active {
+    background: var(--fishing-blue-dark);
+    color: white;
+    border-color: var(--fishing-blue-dark);
+  }
+
+  .card-badge.fishing { background: var(--fishing-blue-dark); }
+
+  .fishing-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--fishing-blue-dark);
+    background: rgba(46,126,168,0.1);
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+    width: fit-content;
+  }
+
+  .fishing-card .btn-book { background: var(--fishing-blue-dark); }
+  .fishing-card .btn-book:hover { background: var(--fishing-blue); }
+
+  .fishing-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--fishing-blue-light) 0%, var(--fishing-blue) 100%);
+    font-size: 3rem;
+  }
+
   /* ─── WHATSAPP FLOATING ─── */
   .wa-float {
     position: fixed;
@@ -912,12 +959,13 @@
      ✏️ Update: logo name, nav links, WhatsApp number
      ════════════════════════════════ -->
 <nav>
-  <a href="/" class="logo">
-        <img src="LogoCircle.jpg" alt="JTDR Excursions Logo" style="height: 48px; width: auto;" />
+  <a href="/" class="nav-logo">
+        <img src="LogoCircle.png" alt="JTDR Excursions Logo" style="height: 128px; width: auto;" />
       </a>
   <ul class="nav-links">
     <li><a href="#tours">Tours</a></li>
     <li><a href="#golf" onclick="switchMainTab('golf', document.querySelector('.main-tab-btn.golf-active'))">Golf</a></li>
+    <li><a href="#fishing" onclick="switchMainTab('fishing', document.querySelector('.main-tab-btn.fishing-active'))">Fishing</a></li>
     <li><a href="#transfers">Transfers</a></li>
     <li><a href="#about">About</a></li>
   </ul>
@@ -997,6 +1045,7 @@
 <div class="main-tab-bar">
   <button class="main-tab-btn active" onclick="switchMainTab('tours', this)">🌴 Tours &amp; Excursions</button>
   <button class="main-tab-btn golf-active" onclick="switchMainTab('golf', this)">⛳ Golf Courses</button>
+  <button class="main-tab-btn fishing-active" onclick="switchMainTab('fishing', this)">🎣 Fishing Charters</button>
 </div>
 
 <div class="main-tab-panel active" id="mainTab-tours">
@@ -1229,41 +1278,6 @@
         <div class="card-price">
           <span class="card-price-from">From</span>
           <span class="card-price-amount">$120 <span>/ person</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
-       <!-- ── CARD 7 ── ✏️ Edit all content below -->
-    <div class="tour-card" data-category="nature"
-         data-extra="Head out into the deep blue with an experienced local crew chasing marlin, tuna, mahi-mahi, and wahoo in one of the Caribbean's top sportfishing grounds."
-         data-highlights="Deep-sea fishing for marlin, tuna, and mahi-mahi | Professional captain and mate on board | All rods, reels, and bait provided | Photos with your catch back at the dock"
-         data-included="Round-trip hotel transportation | Fishing equipment and bait | Bottled water and light snacks | Captain and crew"
-         data-good-to-know="Spots are limited per boat, so booking a few days ahead is recommended. Anyone prone to seasickness may want to take preventive medication before departure.">
-      <div class="card-img-wrap">
-        <img src="blue-marlin-charters-fishing.webp" alt="Deep Sea Fishing" loading="lazy">
-        <span class="card-badge full">Full Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Deep-Sea Fishing</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            10 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 8
-          </span>
-        </div>
-        <p class="card-desc">Catch Marlin and Tuna in the Punta Cana Zone, one of the most popular fishing areas in the Caribbean.</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$115 <span>/ person</span></span>
         </div>
         <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
           Book Now
@@ -2179,111 +2193,6 @@
       </div>
     </div>
 
-    <!-- ── CARD: Private Fishing Charter (Punta Cana) ── -->
-    <div class="tour-card" data-category="water"
-         data-extra="An experienced captain leads the charter, with 4-hour and 8-hour trip options available."
-         data-highlights="Private charter for up to 8 passengers | Target Blue Marlin, Sailfish, Mahi Mahi, Tuna and Wahoo | Experienced captain included | 10% off for families booking together"
-         data-included="Fishing Gear | Boat with Amenities | Experienced Captain | Transportation Included"
-         data-good-to-know="Families receive 10% off this excursion &mdash; let us know during booking so we can apply your complimentary discount.">
-      <div class="card-img-wrap">
-        <img src="private-fishing-charter-punta-cana.jpg" alt="Private Fishing Charter in Punta Cana" loading="lazy">
-        <span class="card-badge full">Full Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Private Fishing Charter &ndash; Punta Cana</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            4-8 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 8
-          </span>
-        </div>
-        <p class="card-desc">Book your own boat for a private deep-sea fishing charter in Punta Cana, targeting Blue Marlin, White Marlin, Sailfish, Mahi Mahi, Yellowfin Tuna and Wahoo.</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$500 <span>/ trip</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Punta%20Cana." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
-    <!-- ── CARD: Private Fishing Charter (Puerto Plata) ── -->
-    <div class="tour-card" data-category="water"
-         data-extra="Choose a 4, 6 or 8-hour trip, with pricing partly determined by how deep you'd like to fish."
-         data-highlights="Private charter for up to 12 passengers | Target Blue Marlin, Sailfish, Mahi Mahi, Tuna and Wahoo | Choice of 4, 6 or 8-hour trips | Deep-sea fishing option available"
-         data-included="Fishing Gear | Boat with Amenities | Experienced Captain | Transportation Included"
-         data-good-to-know="Specify during booking if you'd like to go deep-sea fishing at depths over 50 feet, as this affects pricing.">
-      <div class="card-img-wrap">
-        <img src="private-fishing-charter-puerto-plata.jpg" alt="Private Fishing Charter in Puerto Plata" loading="lazy">
-        <span class="card-badge full">Full Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Private Fishing Charter &ndash; Puerto Plata</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            4-8 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 12
-          </span>
-        </div>
-        <p class="card-desc">Charter your own boat in the deep waters off Puerto Plata to fish for Blue Marlin, White Marlin, Sailfish, Mahi Mahi, Yellowfin Tuna and Wahoo.</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$490 <span>/ trip</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Puerto%20Plata." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
-    <!-- ── CARD: Private Fishing Charter (Samaná) ── -->
-    <div class="tour-card" data-category="water"
-         data-extra="Perfect for trophy hunters and sportfishers of all types, this trip is led by an expert captain and mate."
-         data-highlights="Venture far offshore into deep Caribbean waters | Fish for Tuna, Mahi Mahi, Wahoo, Marlin and Billfish | Professional trolling gear, bait and tackle included | Expert captain and mate"
-         data-included="Expert Captain &amp; Mate | Professional Trolling Gear | Bait &amp; Tackle | Cooler &amp; Drinks"
-         data-good-to-know="This trip is well suited to both experienced sportfishers and trophy hunters looking to fish some of the deepest waters near Samaná, reaching up to 6,000 feet in some areas.">
-      <div class="card-img-wrap">
-        <img src="private-fishing-charter-samana.jpg" alt="Private Fishing Charter in Samaná" loading="lazy">
-        <span class="card-badge half">Half Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Private Fishing Charter &ndash; Samaná</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            5 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 6
-          </span>
-        </div>
-        <p class="card-desc">Venture up to 6,000 feet offshore into deep Caribbean waters to hunt for Tuna, Mahi Mahi, Wahoo, Marlin and Billfish.</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$250 <span>/ trip</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Samana." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
        <!-- ── CARD 7 ── ✏️ Edit all content below -->
       <div class="tour-card" data-category="nature"
          data-extra="Talk with our experienced tour guides and travel networkers to customize your vacation excursion how you want!"
@@ -3103,6 +3012,171 @@
 </div>
 </div>
 
+<!-- ════════════════════════════════
+     FISHING CHARTERS SECTION
+     ✏️ Duplicate .tour-card.fishing-card blocks for each charter.
+     ════════════════════════════════ -->
+<div class="main-tab-panel" id="mainTab-fishing">
+<div class="section fishing-section" id="fishing">
+  <div class="section-header">
+    <span class="section-eyebrow" style="color:var(--fishing-blue-dark);">Reel In an Adventure</span>
+    <h2 class="section-title">Fishing <span style="color:var(--fishing-blue-dark);">Charters</span></h2>
+    <p style="max-width:700px;margin-top:0.75rem;color:var(--text-mid);font-size:0.95rem;">
+      Chase marlin, tuna, mahi-mahi and wahoo in some of the Caribbean's best sportfishing grounds, with shared and private charter options across the island.
+    </p>
+  </div>
+
+  <div class="cards-grid" id="fishingGrid">
+
+    <!-- ── FISHING CARD 1 ── -->
+    <div class="tour-card fishing-card" data-category="water"
+         data-extra="Head out into the deep blue with an experienced local crew chasing marlin, tuna, mahi-mahi, and wahoo in one of the Caribbean's top sportfishing grounds."
+         data-highlights="Deep-sea fishing for marlin, tuna, and mahi-mahi | Professional captain and mate on board | All rods, reels, and bait provided | Photos with your catch back at the dock"
+         data-included="Round-trip hotel transportation | Fishing equipment and bait | Bottled water and light snacks | Captain and crew"
+         data-good-to-know="Spots are limited per boat, so booking a few days ahead is recommended. Anyone prone to seasickness may want to take preventive medication before departure.">
+      <div class="card-img-wrap">
+        <img src="blue-marlin-charters-fishing.webp" alt="Deep Sea Fishing" loading="lazy">
+        <span class="card-badge fishing">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Deep-Sea Fishing</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <span class="fishing-tag">🎣 Shared Charter</span>
+        <p class="card-desc">Catch Marlin and Tuna in the Punta Cana Zone, one of the most popular fishing areas in the Caribbean.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$115 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Deep-Sea%20Fishing%20trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FISHING CARD 2: Private Fishing Charter (Punta Cana) ── -->
+    <div class="tour-card fishing-card" data-category="water"
+         data-extra="An experienced captain leads the charter, with 4-hour and 8-hour trip options available."
+         data-highlights="Private charter for up to 8 passengers | Target Blue Marlin, Sailfish, Mahi Mahi, Tuna and Wahoo | Experienced captain included | 10% off for families booking together"
+         data-included="Fishing Gear | Boat with Amenities | Experienced Captain | Transportation Included"
+         data-good-to-know="Families receive 10% off this excursion &mdash; let us know during booking so we can apply your complimentary discount.">
+      <div class="card-img-wrap">
+        <img src="private-fishing-charter-punta-cana.jpg" alt="Private Fishing Charter in Punta Cana" loading="lazy">
+        <span class="card-badge fishing">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Private Fishing Charter &ndash; Punta Cana</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            4-8 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 8
+          </span>
+        </div>
+        <span class="fishing-tag">📍 Punta Cana</span>
+        <p class="card-desc">Book your own boat for a private deep-sea fishing charter in Punta Cana, targeting Blue Marlin, White Marlin, Sailfish, Mahi Mahi, Yellowfin Tuna and Wahoo.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$500 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Punta%20Cana." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FISHING CARD 3: Private Fishing Charter (Puerto Plata) ── -->
+    <div class="tour-card fishing-card" data-category="water"
+         data-extra="Choose a 4, 6 or 8-hour trip, with pricing partly determined by how deep you'd like to fish."
+         data-highlights="Private charter for up to 12 passengers | Target Blue Marlin, Sailfish, Mahi Mahi, Tuna and Wahoo | Choice of 4, 6 or 8-hour trips | Deep-sea fishing option available"
+         data-included="Fishing Gear | Boat with Amenities | Experienced Captain | Transportation Included"
+         data-good-to-know="Specify during booking if you'd like to go deep-sea fishing at depths over 50 feet, as this affects pricing.">
+      <div class="card-img-wrap">
+        <img src="private-fishing-charter-puerto-plata.jpg" alt="Private Fishing Charter in Puerto Plata" loading="lazy">
+        <span class="card-badge fishing">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Private Fishing Charter &ndash; Puerto Plata</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            4-8 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 12
+          </span>
+        </div>
+        <span class="fishing-tag">📍 Puerto Plata</span>
+        <p class="card-desc">Charter your own boat in the deep waters off Puerto Plata to fish for Blue Marlin, White Marlin, Sailfish, Mahi Mahi, Yellowfin Tuna and Wahoo.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$490 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Puerto%20Plata." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── FISHING CARD 4: Private Fishing Charter (Samaná) ── -->
+    <div class="tour-card fishing-card" data-category="water"
+         data-extra="Perfect for trophy hunters and sportfishers of all types, this trip is led by an expert captain and mate."
+         data-highlights="Venture far offshore into deep Caribbean waters | Fish for Tuna, Mahi Mahi, Wahoo, Marlin and Billfish | Professional trolling gear, bait and tackle included | Expert captain and mate"
+         data-included="Expert Captain &amp; Mate | Professional Trolling Gear | Bait &amp; Tackle | Cooler &amp; Drinks"
+         data-good-to-know="This trip is well suited to both experienced sportfishers and trophy hunters looking to fish some of the deepest waters near Samaná, reaching up to 6,000 feet in some areas.">
+      <div class="card-img-wrap">
+        <img src="private-fishing-charter-samana.jpg" alt="Private Fishing Charter in Samaná" loading="lazy">
+        <span class="card-badge fishing">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Private Fishing Charter &ndash; Samaná</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            5 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 6
+          </span>
+        </div>
+        <span class="fishing-tag">📍 Samaná</span>
+        <p class="card-desc">Venture up to 6,000 feet offshore into deep Caribbean waters to hunt for Tuna, Mahi Mahi, Wahoo, Marlin and Billfish.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$250 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Fishing%20Charter%20in%20Samana." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ✏️ ADD MORE FISHING CARDS HERE — just copy any card block above and edit the content -->
+  </div>
+</div>
+</div>
+
 </div>
 <!-- /.tours-golf-wrap -->
 
@@ -3216,8 +3290,11 @@
     document.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('mainTab-' + tab).classList.add('active');
     // Keep the wrapper background (tab bar + panel) in sync with the active tab,
-    // so the golf-green fill covers the tab bar too instead of leaving a yellow strip.
-    document.getElementById('toursGolfWrap').classList.toggle('golf-mode', tab === 'golf');
+    // so the golf-green / fishing-blue fill covers the tab bar too instead of
+    // leaving a stray sand-colored strip.
+    const wrap = document.getElementById('toursGolfWrap');
+    wrap.classList.toggle('golf-mode', tab === 'golf');
+    wrap.classList.toggle('fishing-mode', tab === 'fishing');
   }
 
   // Tour card category filter (scoped to the Tours & Excursions tab only)
