@@ -12,8 +12,8 @@
         The logo image (download.jpg) is reused as the share-preview
         image — swap it for a dedicated 1200x630 image if you have one.
      ════════════════════════════════ -->
-<meta name="description" content="Islago offers the best DR tours, excursions & golf courses — Saona Island trips, off-road adventures, nightlife, transfers and tee times, booked directly with local guides.">
-<meta name="keywords" content="Dominican tours, Dominican excursions, Dominican golf courses, Saona Island tour, Dominican Republic activities, Islago Tours">
+<meta name="description" content="Islago offers the best excursions for your cruise — Saona Island trips, off-road adventures, nightlife, transfers and tee times, booked directly with local guides.">
+<meta name="keywords" content="Dominican tours, Dominican cruise excursions, Dominican golf courses, Saona Island tour, Amber cove excursions, Cruise Excursions, Dominican Republic activities, Islago Tours">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Islago Tours">
 <meta name="theme-color" content="#0D4F6C">
@@ -26,8 +26,8 @@
 <!-- Open Graph / Facebook, WhatsApp, iMessage, Slack, etc. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Islago Tours">
-<meta property="og:title" content="Islago Tours | Dominican Tours, Excursions & Golf Courses">
-<meta property="og:description" content="Book the best DR tours, excursions and golf courses directly on WhatsApp — Saona Island, off-road adventures, nightlife, transfers & tee times.">
+<meta property="og:title" content="Islago Tours | Dominican Tours, Cruise Excursions & Golf Courses">
+<meta property="og:description" content="Book the best DR tours, cruise excursions and golf courses directly on WhatsApp — Saona Island, off-road adventures, nightlife, transfers & tee times.">
 <meta property="og:url" content="https://islagotours.com">
 <meta property="og:image" content="LogoCircle.png">
 <meta property="og:image:width" content="1200">
@@ -50,7 +50,7 @@
   "url": "https://islagotours.com",
   "logo": "LogoCircle.png",
   "image": "LogoCircle.png",
-  "description": "Dominican tours, excursions and golf course bookings.",
+  "description": "Dominican tours, cruise excursions and golf course bookings.",
   "areaServed": "Punta Cana, Dominican Republic, Canada, United States"
 }
 </script>
@@ -80,6 +80,9 @@
     --fishing-blue: #6FB7DE;
     --fishing-blue-light: #E4F3FB;
     --fishing-blue-dark: #2E7EA8;
+    --catamaran-purple: #B79CD1;
+    --catamaran-purple-light: #F3EDF9;
+    --catamaran-purple-dark: #7B4FA0;
     --radius: 12px;
     --radius-sm: 8px;
   }
@@ -173,7 +176,7 @@
     position: absolute;
     inset: 0;
     /* ✏️ REPLACE THIS URL WITH YOUR OWN HERO PHOTO */
-    background-image: url('NewBanner.jpg');
+    background-image: url('NewBanner.png');
     background-size: cover;
     background-position: center 30%;
     transform: scale(1.04);
@@ -715,6 +718,50 @@
     font-size: 3rem;
   }
 
+  /* ─── CATAMARAN THEME (light purple) ─── */
+  .main-tab-btn.catamaran-active.active {
+    background: var(--catamaran-purple-dark);
+    border-color: var(--catamaran-purple-dark);
+  }
+
+  .tours-golf-wrap.catamaran-mode { background: var(--catamaran-purple-light); }
+
+  #mainTab-catamaran { background: transparent; }
+
+  .catamaran-filter-btn:hover, .catamaran-filter-btn.active {
+    background: var(--catamaran-purple-dark);
+    color: white;
+    border-color: var(--catamaran-purple-dark);
+  }
+
+  .card-badge.catamaran { background: var(--catamaran-purple-dark); }
+
+  .catamaran-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--catamaran-purple-dark);
+    background: rgba(123,79,160,0.1);
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+    width: fit-content;
+  }
+
+  .catamaran-card .btn-book { background: var(--catamaran-purple-dark); }
+  .catamaran-card .btn-book:hover { background: var(--catamaran-purple); }
+
+  .catamaran-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--catamaran-purple-light) 0%, var(--catamaran-purple) 100%);
+    font-size: 3rem;
+  }
+
   /* ─── WHATSAPP FLOATING ─── */
   .wa-float {
     position: fixed;
@@ -966,6 +1013,7 @@
     <li><a href="#tours">Tours</a></li>
     <li><a href="#golf" onclick="switchMainTab('golf', document.querySelector('.main-tab-btn.golf-active'))">Golf</a></li>
     <li><a href="#fishing" onclick="switchMainTab('fishing', document.querySelector('.main-tab-btn.fishing-active'))">Fishing</a></li>
+    <li><a href="#catamaran" onclick="switchMainTab('catamaran', document.querySelector('.main-tab-btn.catamaran-active'))">Catamaran</a></li>
     <li><a href="#transfers">Transfers</a></li>
     <li><a href="#about">About</a></li>
   </ul>
@@ -989,12 +1037,12 @@
     </div>
     <!-- ✏️ YOUR MAIN HEADLINE -->
     <h1 class="hero-title">
-      Customize your excursions. Let's make your dream vacation a reality.<br>
+      Customize your excursions, Let's enhance your cruise experienc.<br>
       <span class="accent"></span>
     </h1>
     <!-- ✏️ YOUR SUBHEADLINE -->
     <p class="hero-subtitle">
-      Private excursions, airport transfers and adventure tours, all arranged directly with our local agents. No more beachside negotiations- Just send us a message.
+      Shore excursions, port transfers, and cruise-customized adventure tours, all arranged directly with our local port experts. No more high-pressure pier-side negotiations—just send us a message before you dock.
     </p>
     <div class="hero-ctas">
       <!-- ✏️ Replace 13435491472 with your WhatsApp number -->
@@ -1046,6 +1094,7 @@
   <button class="main-tab-btn active" onclick="switchMainTab('tours', this)">🌴 Tours &amp; Excursions</button>
   <button class="main-tab-btn golf-active" onclick="switchMainTab('golf', this)">⛳ Golf Courses</button>
   <button class="main-tab-btn fishing-active" onclick="switchMainTab('fishing', this)">🎣 Fishing Charters</button>
+  <button class="main-tab-btn catamaran-active" onclick="switchMainTab('catamaran', this)">⛵ Catamaran Charters</button>
 </div>
 
 <div class="main-tab-panel active" id="mainTab-tours">
@@ -1067,6 +1116,145 @@
   </div>
 
   <div class="cards-grid" id="cardsGrid">
+
+ <!-- ──  ── ✏️ Edit all content below -->
+<div class="tour-card" data-category="nature"
+         data-extra="Leave the route planning and tour organization up to your guide; simply turn up, soak up the history, and enjoy."
+         data-highlights="Visit Catedral San Felipe and Independence Park | Walk through the famous Umbrella Street and Pink Street | See the prehistoric fossils at the Dominican Amber Museum | Shopping Trip at El Mercado de Joquín"
+         data-included="Rum Tasting at Macroix House of Rum | Cigar Rolling at Cigarros Monseñor | Admission to Fortaleza San Felipe | WiFi Onboard"
+         data-good-to-know="We ask you to arrive at the pick up point no more than 45 minutes after your cruise docks. Not wheelchair accessible.">
+      <div class="card-img-wrap">
+        <img src="PuertoPlataCity.jpg" alt="Puerto Plata City Tour" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Puerto Plata City Tour</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 20
+          </span>
+        </div>
+        <p class="card-desc">This is a great choice for first-time visitors to Puerto Plata. Take in the highlights of Puerto Plata on a sightseeing tour, visiting museums, cathedrals, and forts. </p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$79 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <div class="tour-card" data-category="nature"
+         data-extra="Ride through the Dominican countryside and through small villages on a guided ATV tour. Taino Bay cruise passengers may also stop at a Chocolate Factory to enjoy a complimentary tasting."
+         data-highlights="Drive through Peurto Plata Province | Race Dune Buggies through a forested countryside | Chocolate Factory Mini-Tour | Fresh Coconut Drinks and Damajagua"
+         data-included="Round-trip hotel transportation | English Tour Guide | Goggles, Helmets, Banada and Waterproof Phone Case | WiFi Onboard"
+         data-good-to-know="Wear closed-toe shoes and clothes you don't mind getting muddy. Alcohol not included.">
+      <div class="card-img-wrap">
+        <img src="SuperATV.jpg" alt="Super ATV Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Taino Bay Super ATV Adventure</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 20
+          </span>
+        </div>
+        <p class="card-desc">Whether you're staying in Puerto Plata or stopping by on a cruise ship, you'll love this ATV adventure tour!</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$137 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+ <!-- ── CARD 18 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Enjoy snorkeling, swimming, and taking in native marine life at Monte Cristi National Park, includes Mangrove Tour and Lunch."
+         data-highlights="Visit Cayo Arena, the Paradise Island | Boat Ride Through Mangrove Trees | See the Historic City of Estero Hondo | Lunch at Playa de Punta Rucia"
+         data-included="Round-Trip Transportation | Snorkeling Equipment | Lunch, Refreshments and Alcoholic Beverages | Entry to Cayo Arena, Playa de Punta Rucia and Santuario Mamiferos Marinos De Estero Hondo"
+         data-good-to-know="The bus ride to Paradise Island and The Mangroves is 1 Hour 15 Minutes.">
+      <div class="card-img-wrap">
+        <img src="ParadiseIsland.jpg" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge full">Full Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Paradise Island Tour</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            7-8 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 18
+          </span>
+        </div>
+        <p class="card-desc">Discover this unique Caribbean island with this Cayo Arena excursion.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$124 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+<!-- ── CARD 13 ── ✏️ Edit all content below -->
+    <div class="tour-card" data-category="nature"
+         data-extra="Join a small group and climb aboard your buggies for a trip through the rugged countryside. Zip along dirt trails, drive past local villages, and head to Teco’s Beach for views of the turquoise waters."
+         data-highlights="Visit Playa de Guzmancito beach | Race Dune Buggies On A Rugged Off-Roading Course | Chocolate Factory Mini Tour (From Taino Bay Only) | Coconut Drinks and Mamajuana"
+         data-included="Round-trip hotel transportation | English Tour Guide | Goggles, Helmets and Waterproof Phone Case | 1 Dominican Flag Bandana Per Person"
+         data-good-to-know="Wear closed-toe shoes and clothes you don't mind getting muddy. Alcohol not included.">
+      <div class="card-img-wrap">
+        <img src="superbuggy.jpg" alt="Speedboat & Snorkel Tour" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Taino Bay Super Buggy Tour</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3-4 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 30
+          </span>
+        </div>
+        <p class="card-desc">Discover the jungles of the Dominican Republic in this thrilling buggy tour in Puerto Plata!</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$175 <span>/ group (up to 2)</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
 
     <!-- ── CARD 1 ── ✏️ Edit all content below -->
     <div class="tour-card" data-category="water"
@@ -1460,41 +1648,6 @@
       </div>
     </div>
 
-               <!-- ── CARD 13 ── ✏️ Edit all content below -->
-    <div class="tour-card" data-category="nature"
-         data-extra="Join a small group and climb aboard your buggies for a trip through the rugged countryside. Zip along dirt trails, drive past local villages, and head to Teco’s Beach for views of the turquoise waters."
-         data-highlights="Visit Playa de Guzmancito beach | Race Dune Buggies On A Rugged Off-Roading Course | Chocolate Factory Mini Tour (From Taino Bay Only) | Coconut Drinks and Mamajuana"
-         data-included="Round-trip hotel transportation | English Tour Guide | Goggles, Helmets and Waterproof Phone Case | 1 Dominican Flag Bandana Per Person"
-         data-good-to-know="Wear closed-toe shoes and clothes you don't mind getting muddy. Alcohol not included.">
-      <div class="card-img-wrap">
-        <img src="superbuggy.jpg" alt="Speedboat & Snorkel Tour" loading="lazy">
-        <span class="card-badge half">Half Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Taino Bay Super Buggy Tour</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            3-4 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 30
-          </span>
-        </div>
-        <p class="card-desc">Discover the jungles of the Dominican Republic in this thrilling buggy tour in Puerto Plata!</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$175 <span>/ group (up to 2)</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
                <!-- ── CARD 14 ── ✏️ Edit all content below -->
     <div class="tour-card" data-category="nature"
          data-extra="Ride through the Dominican countryside and through small villages on a guided ATV tour. Taino Bay cruise passengers may also stop at a Chocolate Factory to enjoy a complimentary tasting."
@@ -1635,41 +1788,7 @@
       </div>
     </div>
 
-                  <!-- ── CARD 18 ── ✏️ Edit all content below -->
-    <div class="tour-card" data-category="nature"
-         data-extra="Enjoy snorkeling, swimming, and taking in native marine life at Monte Cristi National Park, includes Mangrove Tour and Lunch."
-         data-highlights="Visit Cayo Arena, the Paradise Island | Boat Ride Through Mangrove Trees | See the Historic City of Estero Hondo | Lunch at Playa de Punta Rucia"
-         data-included="Round-Trip Transportation | Snorkeling Equipment | Lunch, Refreshments and Alcoholic Beverages | Entry to Cayo Arena, Playa de Punta Rucia and Santuario Mamiferos Marinos De Estero Hondo"
-         data-good-to-know="The bus ride to Paradise Island and The Mangroves is 1 Hour 15 Minutes.">
-      <div class="card-img-wrap">
-        <img src="ParadiseIsland.jpg" alt="Speedboat & Snorkel Tour" loading="lazy">
-        <span class="card-badge full">Full Day</span>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Paradise Island Tour</h3>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            7-8 hours
-          </span>
-          <span class="card-meta-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Up to 18
-          </span>
-        </div>
-        <p class="card-desc">Discover this unique Caribbean island with this Cayo Arena excursion.</p>
-      </div>
-      <div class="card-footer">
-        <div class="card-price">
-          <span class="card-price-from">From</span>
-          <span class="card-price-amount">$124 <span>/ person</span></span>
-        </div>
-        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
-          Book Now
-        </a>
-      </div>
-    </div>
-
+                 
                   <!-- ── CARD 19 ── ✏️ Edit all content below -->
     <div class="tour-card" data-category="nature"
          data-extra="After pickup from the Amber Cove or Taino Bay, or nearby hotels, hike through the tropical vistas and waterfall courses to reach a choice of ziplines. Afterwards, enjoy an inclusive and authentic Dominican Buffet."
@@ -2018,6 +2137,40 @@
       </div>
     </div>
 
+     <div class="tour-card" data-category="nature"
+         data-extra="Leave the route planning and tour organization up to your guide; simply turn up, soak up the history, and enjoy."
+         data-highlights="Visit Catedral San Felipe and Independence Park | Walk through the famous Umbrella Street and Pink Street | See the prehistoric fossils at the Dominican Amber Museum | Shopping Trip at Carmen Factory"
+         data-included="Rum Tasting at Macroix House of Rum | Chocolate tour and tasting | Admission to Fortaleza San Felipe | Private Tour Guide"
+         data-good-to-know="Bring comfortable shoes and sunscreen. Not wheelchair accessible. Lunch, alcoholic beverages not included.">
+      <div class="card-img-wrap">
+        <img src="PuertoPlataCity.jpg" alt="Private Puerto Plata City Tour" loading="lazy">
+        <span class="card-badge half">Half Day</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Private Puerto Plata City Tour</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Up to 20
+          </span>
+        </div>
+        <p class="card-desc">Take a VIP tour across Puerto Plata City, complete with private transportation, cruise pick-up and drop-off and personal tour guide. </p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$79 <span>/ person</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20the%20Santo%20Domingo%20Day%20Trip." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
     <!-- ── CARD 2 ── ✏️ Edit all content below -->
  <div class="tour-card" data-category="nature"
          data-extra="The same colonial Santo Domingo itinerary as our classic day trip, arranged as a private tour with your own vehicle, driver, and guide."
@@ -2192,6 +2345,7 @@
         </a>
       </div>
     </div>
+   
 
        <!-- ── CARD 7 ── ✏️ Edit all content below -->
       <div class="tour-card" data-category="nature"
@@ -2385,7 +2539,7 @@
          data-included="Green fees | Golf cart rental | Bag storage | Access to practice facilities"
          data-good-to-know="Tee times are subject to seasonal availability and course conditions. We recommend booking at least 48 hours in advance to confirm your preferred time.">
       <div class="card-img-wrap">
-        <!-- ✏️ Replace with an actual photo of Punta Espada -->
+        <img src="PuntaEspada.webp" alt="Canyoning at Baiguate Falls" loading="lazy">
         <div class="PuntaEspada.webp">⛳</div>
         <span class="card-badge golf">18 Holes</span>
       </div>
@@ -2681,7 +2835,7 @@
          data-included="Green fees | Golf cart rental | Bag storage | Access to practice facilities"
          data-good-to-know="Tee times are subject to seasonal availability and course conditions. We recommend booking at least 48 hours in advance to confirm your preferred time.">
       <div class="card-img-wrap">
-        <img src="CabezaDelToro.webp" alt="Canyoning at Baiguate Falls" loading="lazy">
+        <img src="CabezaDeToro.webp" alt="Canyoning at Baiguate Falls" loading="lazy">
         <div class="CabezaDelToro.webp">⛳</div>
         <span class="card-badge golf">9 Holes</span>
       </div>
@@ -2748,7 +2902,7 @@
       </div>
     </div>
 
-    <!-- ── GOLF CARD 14 ── -->
+    <!-- ── GOLF  ── -->
     <div class="tour-card golf-card" data-city="rio-san-juan"
          data-extra="The setting is remote and unhurried compared to the busier Punta Cana courses — a favorite for golfers chasing dramatic scenery."
          data-highlights="Cliffside holes with sweeping Atlantic views | Widely considered one of RTJ Sr.&#x27;s finest Caribbean designs | Secluded, uncrowded north-coast setting | Contact us for current green fee pricing"
@@ -2903,7 +3057,7 @@
          data-included="Green fees | Golf cart rental | Bag storage | Access to practice facilities"
          data-good-to-know="Tee times are subject to seasonal availability and course conditions. We recommend booking at least 48 hours in advance to confirm your preferred time.">
       <div class="card-img-wrap">
-        <img src="TheLinks.webp" alt="Canyoning at Baiguate Falls" loading="lazy">
+        <img src="TheLinks.jpg" alt="Canyoning at Baiguate Falls" loading="lazy">
         <div class="TheLinks.webp">⛳</div>
         <span class="card-badge golf">18 Holes</span>
       </div>
@@ -3176,7 +3330,350 @@
   </div>
 </div>
 </div>
+<!-- ════════════════════════════════
+     CATAMARAN CHARTERS SECTION
+     ✏️ Duplicate .tour-card.catamaran-card blocks for each boat.
+     ════════════════════════════════ -->
+<div class="main-tab-panel" id="mainTab-catamaran">
+<div class="section catamaran-section" id="catamaran">
+  <div class="section-header">
+    <span class="section-eyebrow" style="color:var(--catamaran-purple-dark);">Set Sail in Puerto Plata</span>
+    <h2 class="section-title">Catamaran <span style="color:var(--catamaran-purple-dark);">Charters</span></h2>
+    <p style="max-width:700px;margin-top:0.75rem;color:var(--text-mid);font-size:0.95rem;">
+      Rent a private, fully crewed catamaran or yacht for a 3-hour cruise along the Puerto Plata coastline, complete with food and drinks on board.
+    </p>
+  </div>
 
+  <div class="cards-grid" id="catamaranGrid">
+
+    <!-- ── CATAMARAN CARD 1: Schifferboot 65 ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A spacious 65-foot Schifferboot with a full crew on board, perfect for groups looking to relax on the water off Puerto Plata."
+         data-highlights="65-foot Schifferboot vessel | Capacity for 10+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="Great for small to mid-sized groups. Let us know of any dietary preferences ahead of time so the crew can prepare accordingly.">
+      <div class="card-img-wrap">
+        <img src="SchifferbootCatamaran65.jpg" alt="Schifferboot 65 Catamaran Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Schifferboot 65</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            10+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">⛵ 65' Crewed Boat</span>
+        <p class="card-desc">A crewed 65-foot Schifferboot in Puerto Plata with food and drinks included, ideal for a relaxed 3-hour cruise.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$1,300 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Schifferboot%2065%20catamaran." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 2: Fountaine Pajot 43 ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A Fountaine Pajot Belize catamaran offering plenty of deck space for larger groups cruising the Puerto Plata coast."
+         data-highlights="43-foot Fountaine Pajot Belize catamaran | Capacity for 15+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="A popular pick for bachelor/bachelorette parties and birthday celebrations thanks to its wide open deck.">
+      <div class="card-img-wrap">
+        <img src="FountainePajot43.webp" alt="Fountaine Pajot 43 Catamaran Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Fountaine Pajot 43</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">⛵ 43' Crewed Catamaran</span>
+        <p class="card-desc">A 43-foot Fountaine Pajot Belize catamaran with full crew, food and drinks, built for group cruising in Puerto Plata.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$1,100 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Fountaine%20Pajot%2043%20catamaran." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 3: Privilege 52 Catamaran ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A 52-foot Privilege catamaran with room for 20 or more guests, one of the roomiest charters in the fleet."
+         data-highlights="52-foot Privilege catamaran | Capacity for 20+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="Well suited to larger groups and corporate outings looking for extra deck space.">
+      <div class="card-img-wrap">
+        <img src="Privilege52Catamaran.jpg" alt="Privilege 52 Catamaran Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Privilege 52 Catamaran</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            20+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">⛵ 52' Crewed Catamaran</span>
+        <p class="card-desc">A spacious 52-foot Privilege catamaran with full crew, food and drinks, perfect for larger groups on the water.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$1,350 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Privilege%2052%20Catamaran." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 4: Schifferboot Extended ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="The largest boat in the fleet, built for big groups, parties and events cruising off Puerto Plata."
+         data-highlights="Extended Schifferboot vessel | Capacity for 21-30 guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="Our largest charter option — ideal for weddings, corporate events and big group celebrations.">
+      <div class="card-img-wrap">
+        <img src="SchifferbootExtended.jpg" alt="Schifferboot Extended Catamaran Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Schifferboot Extended</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            21-30 guests
+          </span>
+        </div>
+        <span class="catamaran-tag">⛵ Largest Charter</span>
+        <p class="card-desc">Our biggest boat, an extended Schifferboot with full crew, food and drinks, built for big group celebrations.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$1,950 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Schifferboot%20Extended%20catamaran." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 5: Ocean Alexander 46 ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A sleek 46-foot Ocean Alexander motor yacht, a comfortable and stylish option for cruising Puerto Plata."
+         data-highlights="46-foot Ocean Alexander yacht | Capacity for 15+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="A great value option for groups wanting a comfortable motor yacht experience without the catamaran-style deck.">
+      <div class="card-img-wrap">
+        <img src="OceanAlexander46.webp" alt="Ocean Alexander 46 Yacht Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Ocean Alexander 46</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">🛥️ 46' Motor Yacht</span>
+        <p class="card-desc">A 46-foot Ocean Alexander motor yacht with full crew, food and drinks, offering a comfortable ride along the coast.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$850 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Ocean%20Alexander%2046%20yacht." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 6: Hatteras 52 Yacht ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A classic 52-foot Hatteras motor yacht, offering a smooth, comfortable cruise along the Puerto Plata coastline."
+         data-highlights="52-foot Hatteras yacht | Capacity for 15+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="A dependable, comfortable option well suited to families and mixed-age groups.">
+      <div class="card-img-wrap">
+        <img src="Hatteras52Yacht.webp" alt="Hatteras 52 Yacht Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Hatteras 52 Yacht</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">🛥️ 52' Motor Yacht</span>
+        <p class="card-desc">A 52-foot Hatteras motor yacht with full crew, food and drinks, ideal for a comfortable 3-hour charter.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$900 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Hatteras%2052%20Yacht." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 7: Sosúa Snorkel Catamaran ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="Cruise from Puerto Plata to the reefs of Sosúa aboard this Aventura Boats catamaran, with time in the water to snorkel."
+         data-highlights="52-foot Aventura Boats catamaran | Capacity for 15+ guests | Full crew included | Snorkel stop near Sosúa | Food and drinks on board"
+         data-included="Professional crew | Snorkel gear | Food and drinks | 3-hour cruise"
+         data-good-to-know="This charter includes time in the water, so pack swimwear and reef-safe sunscreen.">
+      <div class="card-img-wrap">
+        <img src="SosuaSnorkelCatamaran.jpg" alt="Sosúa Snorkel Catamaran Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Sosúa Snorkel Catamaran</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">📍 Sosúa Reef</span>
+        <p class="card-desc">A crewed catamaran charter from Puerto Plata to Sosúa, with a snorkel stop, food and drinks included.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$1,200 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Sosua%20Snorkel%20Catamaran." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 8: Bertram 54 Yacht ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A 54-foot Bertram motor yacht, offering a stable, roomy ride for groups cruising the Puerto Plata coast."
+         data-highlights="54-foot Bertram yacht | Capacity for 15+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="One of the roomier motor yachts in the fleet, with a stable ride well suited to calmer group outings.">
+      <div class="card-img-wrap">
+        <img src="Bertram54Yacht.jpg" alt="Bertram 54 Yacht Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Bertram 54 Yacht</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">🛥️ 54' Motor Yacht</span>
+        <p class="card-desc">A 54-foot Bertram motor yacht with full crew, food and drinks, offering a smooth 3-hour cruise for groups.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$900 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Bertram%2054%20Yacht." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CATAMARAN CARD 9: Viking 48 Yacht ── -->
+    <div class="tour-card catamaran-card" data-category="water"
+         data-extra="A 48-foot Viking motor yacht, a fast and comfortable choice for a 3-hour charter out of Puerto Plata."
+         data-highlights="48-foot Viking yacht | Capacity for 15+ guests | Full crew included | Food and drinks on board"
+         data-included="Professional crew | Food and drinks | 3-hour cruise | Sound system"
+         data-good-to-know="One of the more affordable options in the fleet, without compromising on crew, food or drinks.">
+      <div class="card-img-wrap">
+        <img src="Viking48Yacht.webp" alt="Viking 48 Yacht Charter" loading="lazy">
+        <span class="card-badge catamaran">3 Hours</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Viking 48 Yacht</h3>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hours
+          </span>
+          <span class="card-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            15+ guests
+          </span>
+        </div>
+        <span class="catamaran-tag">🛥️ 48' Motor Yacht</span>
+        <p class="card-desc">A 48-foot Viking motor yacht with full crew, food and drinks, a great-value pick for a 3-hour cruise.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          <span class="card-price-amount">$850 <span>/ trip</span></span>
+        </div>
+        <a href="https://wa.me/13435491472?text=Hi!%20I%27m%20interested%20in%20renting%20the%20Viking%2048%20Yacht." class="btn-book" target="_blank" rel="noopener">
+          Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- ✏️ ADD MORE CATAMARAN CARDS HERE — just copy any card block above and edit the content -->
+  </div>
+</div>
+</div>
 </div>
 <!-- /.tours-golf-wrap -->
 
@@ -3295,6 +3792,7 @@
     const wrap = document.getElementById('toursGolfWrap');
     wrap.classList.toggle('golf-mode', tab === 'golf');
     wrap.classList.toggle('fishing-mode', tab === 'fishing');
+    wrap.classList.toggle('catamaran-mode', tab === 'catamaran');
   }
 
   // Tour card category filter (scoped to the Tours & Excursions tab only)
